@@ -77,17 +77,50 @@ Once the challenges are running you can access them using the following url: `ht
 
 On macOS you will need to access `http://127.0.0.1:5000/login?=[YOUR-AUTH-KEY]` because localhost maps to IPv6 and the containers are listening on IPv4.
 
-### Changing the Challenges
+## Langfuse Integration (Monitoring & Cost Tracking)
 
-If you would like to change the challenges, you can do so by changing the `challenges/challenges.json` file. This file contains the description of the challenges and their objectives. You can then use the script `generate.py` to generate the new docker-compose file with the new challenges and their configuration.
+Langfuse is integrated into the infrastructure to allow you to monitor consumption and costs of OpenAI API calls. Langfuse is an open-source LLM observability platform that automatically traces requests, tokens, latency, and costs.
 
+### Starting Langfuse
+
+Langfuse is included in the docker-compose-openai.yaml and starts automatically with the other services:
+
+```bash
+docker compose -f docker-compose-openai.yaml up
 ```
-cd challenges
-python -m venv .env
-source .env/bin/activate
-pip install -r requirements.txt
-python generate.py challenges.json
+
+### Accessing the Langfuse Interface
+
+1. **Web Interface**: Go to `http://localhost:3100`
+2. **First Connection**: Create an admin account on your first visit
+3. **Project Configuration**: Create a new project for your challenges
+
+### Retrieving API Keys
+
+1. In the Langfuse interface, go to **Settings > API Keys**
+2. Copy the **Public Key** and **Secret Key**
+3. Add them to your `.env` file:
+
+```bash
+LANGFUSE_PUBLIC_KEY=lf_pk_xxx...
+LANGFUSE_SECRET_KEY=lf_sk_xxx...
 ```
+
+### Cost Monitoring
+
+Once configured, Langfuse allows you to:
+- **Trace all OpenAI requests** in real-time
+- **Monitor costs** per token and per model
+- **Analyze performance** (latency, error rate)
+- **Debug prompts** and see complete responses
+- **Create dashboards** to track usage
+
+### Langfuse Architecture
+
+The stack includes:
+- **langfuse**: Web interface and API (port 3100)
+- **langfuse-postgres**: Main database
+- **langfuse-clickhouse**: Analytics and large-scale metrics
 
 ## Components
 
