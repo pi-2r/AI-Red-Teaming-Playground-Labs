@@ -1,6 +1,3 @@
-# OpenAI API configuration instead of Azure OpenAI
-# Usage: docker compose -f docker-compose-openai.yaml up
-
 services:
   challenge-home:
     build:
@@ -14,15 +11,14 @@ services:
     - OPEN_LINK_NEW_TAB=true
     volumes:
     - ./docker/data/challenge-home/data.json:/app/build/data.json:ro
-
   chat-copilot-1:
     build:
       context: .
       dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4001:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -44,15 +40,11 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-1/appsettings.json:/app/appsettings.Production.json:ro
-
   chat-copilot-2:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4002:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -74,15 +66,13 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-2/appsettings.json:/app/appsettings.Production.json:ro
-
+    depends_on:
+    - chat-copilot-1
   chat-copilot-3:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4003:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -104,15 +94,13 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-3/appsettings.json:/app/appsettings.Production.json:ro
-
+    depends_on:
+    - chat-copilot-1
   chat-copilot-4:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4004:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -134,15 +122,13 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-4/appsettings.json:/app/appsettings.Production.json:ro
-
+    depends_on:
+    - chat-copilot-1
   chat-copilot-5:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4005:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -164,15 +150,13 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-5/appsettings.json:/app/appsettings.Production.json:ro
-
+    depends_on:
+    - chat-copilot-1
   chat-copilot-6:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4006:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -194,15 +178,13 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-6/appsettings.json:/app/appsettings.Production.json:ro
-
+    depends_on:
+    - chat-copilot-1
   chat-copilot-7:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4007:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -224,15 +206,13 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-7/appsettings.json:/app/appsettings.Production.json:ro
-
+    depends_on:
+    - chat-copilot-1
   chat-copilot-8:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4008:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -254,15 +234,13 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-8/appsettings.json:/app/appsettings.Production.json:ro
-
+    depends_on:
+    - chat-copilot-1
   chat-copilot-9:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4009:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -284,15 +262,13 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-9/appsettings.json:/app/appsettings.Production.json:ro
-
+    depends_on:
+    - chat-copilot-1
   chat-copilot-10:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4010:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -314,15 +290,13 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-10/appsettings.json:/app/appsettings.Production.json:ro
-
+    depends_on:
+    - chat-copilot-1
   chat-copilot-11:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4011:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -344,15 +318,13 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-11/appsettings.json:/app/appsettings.Production.json:ro
-
+    depends_on:
+    - chat-copilot-1
   chat-copilot-12:
-    build:
-      context: .
-      dockerfile: docker/chat-copilot/webapi/Dockerfile
+    image: chat-copilot-webapi
     ports:
     - 127.0.0.1:4012:4000
     environment:
-    # Config for standard OpenAI API
     - KernelMemory__TextGeneratorType=OpenAI
     - KernelMemory__Services__OpenAI__APIKey=${OPENAI_API_KEY}
     - KernelMemory__Services__OpenAI__TextModel=${OPENAI_TEXT_MODEL}
@@ -374,3 +346,5 @@ services:
     - ASPNETCORE_ENVIRONMENT=Production
     volumes:
     - ./docker/data/chat-copilot-12/appsettings.json:/app/appsettings.Production.json:ro
+    depends_on:
+    - chat-copilot-1

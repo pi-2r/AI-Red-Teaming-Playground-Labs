@@ -6,6 +6,7 @@ ARG PAT
 WORKDIR /app
 COPY src/chat-copilot/webapp/ .
 RUN rm -f .env && \
+  yarn config set registry https://registry.npmjs.org/ && \
   yarn install \
   --prefer-offline \
   --frozen-lockfile \

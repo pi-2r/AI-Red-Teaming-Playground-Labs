@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/devcontainers/javascript-node:20-bookworm AS builder-weba
 ARG PAT
 WORKDIR /app
 COPY src/challenge-home/webapp/ .
-RUN yarn install \
+RUN yarn config set registry https://registry.npmjs.org/ && yarn install \
   --prefer-offline \
   --frozen-lockfile \
   --non-interactive \
